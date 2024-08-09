@@ -34,3 +34,16 @@ import {
   SelectSeparator,
 } from '@/components/ui/select';
 
+const SignUpForm = () => {
+  return (
+    <div className='h-full w-[720px]'>
+      <Card className='relative m-auto min-h-[474px] w-[592px] pb-14'>
+        <CardHeading>
+        </CardHeading>
+        <CardContent>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+export default SignUpForm;
