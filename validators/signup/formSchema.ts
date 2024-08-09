@@ -12,7 +12,7 @@ export const formSchema = z
       .string()
       .regex(PASSWORD_REGEX.FULL, {
         message:
-          'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+          'Password must contain at least one uppercase letter, one lowercase letter, one number, and atleast 8 character',
       })
       .min(8),
     confirmPassword: z.string().min(8, { message: 'Please re-type your password' }),
