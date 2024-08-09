@@ -37,6 +37,7 @@ import {
 type InputValidation = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,6 +48,9 @@ const SignUpForm = () => {
       country: '',
     },
   });
+  // ╭─────────────────────────────────────────────────────────╮
+  // │ TODO: create a customField that will be reusable        │
+  // ╰─────────────────────────────────────────────────────────╯
   const { isFirstStep, isLastStep, step, next, back, currentStepIndex } = useMutistepForm([
     <FormField
       key={1}
@@ -180,6 +184,24 @@ const SignUpForm = () => {
     />,
   ]);
 
+  // const handleNextStep = () => {
+  //   if (Array.isArray(step.props.children)) {
+  //     form.trigger(
+  //       step?.props?.children?.map((field: any) => field.props.name),
+  //       { shouldFocus: true }
+  //     );
+  //   } else {
+  //     form.trigger([step?.props?.name], {
+  //       shouldFocus: true,
+  //     });
+  //   }
+  //   const fieldState = form.getFieldState(
+  //     step.props.name || (step.props.children[0].props.name && step.props.children[1].props.name)
+  //   );
+  //   console.log(fieldState);
+  //   if (!fieldState.isDirty || fieldState.error) return;
+  //   next();
+  // };
 
   const handleNextStep = () => {
     const currentStepFields = Array.isArray(step.props.children)
