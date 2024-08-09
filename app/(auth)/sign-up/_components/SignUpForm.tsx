@@ -34,7 +34,19 @@ import {
   SelectSeparator,
 } from '@/components/ui/select';
 
+type InputValidation = z.infer<typeof formSchema>;
+
 const SignUpForm = () => {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+      confirmPassword: '',
+      businessName: '',
+      country: '',
+    },
+  });
   const { isFirstStep, isLastStep, step, next, back, currentStepIndex } = useMutistepForm([
   ]);
 
