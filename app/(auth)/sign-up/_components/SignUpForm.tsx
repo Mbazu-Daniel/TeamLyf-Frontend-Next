@@ -195,8 +195,15 @@ const SignUpForm = () => {
     });
   };
 
+  const onSubmit = (values: InputValidation) => {
+    try {
+      console.log(values);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
+    // ╭─────────────────────────────────────────────────────────╮
     <div className='h-full w-[720px]'>
       <Card className='relative m-auto min-h-[474px] w-[592px] pb-14'>
         <CardHeading>
