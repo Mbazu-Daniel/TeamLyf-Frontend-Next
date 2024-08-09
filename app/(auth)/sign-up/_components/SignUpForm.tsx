@@ -35,6 +35,9 @@ import {
 } from '@/components/ui/select';
 
 const SignUpForm = () => {
+  const { isFirstStep, isLastStep, step, next, back, currentStepIndex } = useMutistepForm([
+  ]);
+
   return (
     <div className='h-full w-[720px]'>
       <Card className='relative m-auto min-h-[474px] w-[592px] pb-14'>
