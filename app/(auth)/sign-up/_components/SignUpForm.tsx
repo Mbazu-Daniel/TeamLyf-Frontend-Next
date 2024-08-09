@@ -186,6 +186,14 @@ const SignUpForm = () => {
       ? step.props.children.map((child: any) => child.props.name)
       : [step.props.name];
 
+    form.trigger(currentStepFields).then((result) => {
+      if (result) {
+        next();
+      } else {
+        console.log('Validation errors:', form.formState.errors);
+      }
+    });
+  };
 
   };
   return (
