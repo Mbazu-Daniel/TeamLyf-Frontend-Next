@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { useMutistepForm } from '@/constants/useMultiStepForm';
@@ -220,6 +221,7 @@ const SignUpForm = () => {
   const onSubmit = (values: InputValidation) => {
     try {
       console.log(values);
+      redirect('/');
     } catch (error) {
       console.log(error);
     }
