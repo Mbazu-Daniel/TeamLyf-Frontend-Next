@@ -2,7 +2,7 @@
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { useMutistepForm } from '@/constants/useMultiStepForm';
@@ -38,6 +38,7 @@ import {
 type InputValidation = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -221,7 +222,7 @@ const SignUpForm = () => {
   const onSubmit = (values: InputValidation) => {
     try {
       console.log(values);
-      redirect('/');
+      router.push('/');
     } catch (error) {
       console.log(error);
     }
