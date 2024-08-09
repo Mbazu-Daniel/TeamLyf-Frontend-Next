@@ -204,9 +204,24 @@ const SignUpForm = () => {
   };
   return (
     // ╭─────────────────────────────────────────────────────────╮
+    // │ TODO: turn this Card to compound component              │
+    // ╰─────────────────────────────────────────────────────────╯
     <div className='h-full w-[720px]'>
       <Card className='relative m-auto min-h-[474px] w-[592px] pb-14'>
         <CardHeading>
+          {FormDetails.map((detail) => {
+            if (detail.step === currentStepIndex) {
+              return (
+                <HeadingDetail
+                  detail={detail}
+                  isFirstStep={isFirstStep}
+                  back={back}
+                  key={detail.step}
+                />
+              );
+            }
+            return null;
+          })}
         </CardHeading>
         <CardContent>
           <Form {...form}>
