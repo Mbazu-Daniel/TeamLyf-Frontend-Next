@@ -262,7 +262,7 @@ const SignUpForm = () => {
                     isLoading={form.formState.isLoading}
                     disabled={form.formState.isSubmitting}
                     intent='secondary'
-                    className='bg-purple-300'
+                    className='bg-purple-300 text-white transition hover:-translate-y-[3px] hover:bg-purple-500 focus-visible:bg-[none] active:-translate-y-[1px]'
                   />
                 ) : (
                   <Button
@@ -270,7 +270,7 @@ const SignUpForm = () => {
                     type='button'
                     onClick={handleNextStep}
                     intent='secondary'
-                    className='bg-purple-300 text-white hover:bg-purple-500 focus-visible:bg-[none]'
+                    className='bg-purple-300 text-white transition hover:-translate-y-[3px] hover:bg-purple-500 focus-visible:bg-[none] active:-translate-y-[1px]'
                   />
                 )}
               </div>
