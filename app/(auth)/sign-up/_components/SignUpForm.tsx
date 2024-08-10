@@ -250,7 +250,7 @@ const SignUpForm = () => {
         </CardHeading>
         <CardContent>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-9'>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
               {step}
               <div className='absolute bottom-8 right-6 flex justify-end'>
                 {isLastStep ? (
