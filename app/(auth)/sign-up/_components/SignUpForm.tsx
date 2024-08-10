@@ -162,7 +162,7 @@ const SignUpForm = () => {
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
                 <SelectTrigger>
-                  <SelectValue placeholder='e.g Nigeria' />
+                  <SelectValue placeholder='Select your location' />
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
