@@ -4,6 +4,7 @@ import logoIcon from '../../public/assets/lyfBlueLogo.svg';
 import productBag from '../../public/assets/images/Productivity3D.png';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { CustomLogo } from '../shared/CustomLogo';
 
 interface LeftFormCardProps {
   title: string;
@@ -19,7 +20,7 @@ const LeftFormCard = ({ title, message, className }: LeftFormCardProps) => {
         className
       )}
     >
-      <Image src={logoIcon} alt='logo icon' className='ml-8 mt-8' />
+      <CustomLogo width={180} height={40} />
       <div className='innerWrap hidden flex-col items-center px-16 md:flex '>
         <Image src={productBag} alt='productivity logo' width={450} height={200} className='mt-4' />
         <h3 className='text-[40px] font-bold'>{title}</h3>
