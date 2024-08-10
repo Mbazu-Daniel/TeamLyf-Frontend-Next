@@ -231,7 +231,7 @@ const SignUpForm = () => {
     // ╭─────────────────────────────────────────────────────────╮
     // │ TODO: turn this Card to compound component              │
     // ╰─────────────────────────────────────────────────────────╯
-    <div className='h-full w-[720px]'>
+    <div className='w-[720px]'>
       <Card className='relative m-auto min-h-[474px] w-[592px] pb-14'>
         <CardHeading width={180} height={34}>
           {FormDetails.map((detail) => {
