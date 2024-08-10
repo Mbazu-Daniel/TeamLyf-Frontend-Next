@@ -34,12 +34,15 @@ import {
   SelectValue,
   SelectSeparator,
 } from '@/components/ui/select';
+import { PasswordInput } from '@/components/ui/password-input';
+import PasswordPopover from '@/components/shared/PasswordPopover';
 
 type InputValidation = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -80,21 +83,24 @@ const SignUpForm = () => {
         key={2}
         name='password'
         control={form.control}
-        render={function ({ field }) {
+        render={function ({ field, fieldState }) {
+          const { onBlur, ...restFields } = field;
           return (
             <FormItem key={field.name}>
               <FormControl>
-                <Input
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder='Enter password'
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e);
-                    form.trigger('password');
+                <PasswordInput
+                  placeholder='Enter your password'
+                  onFocus={() => setIsPasswordFocused(true)}
+                  onBlur={() => {
+                    onBlur();
+                    setIsPasswordFocused(false);
                   }}
+                  {...restFields}
                 />
               </FormControl>
-              <FormMessage />
+              {(!!fieldState.error?.message || isPasswordFocused) && (
+                <PasswordPopover password={field.value} />
+              )}
             </FormItem>
           );
         }}
@@ -104,33 +110,27 @@ const SignUpForm = () => {
         name='confirmPassword'
         control={form.control}
         render={function ({ field }) {
+          const { onBlur, ...restFields } = field;
           return (
-            <div className='space-y-2'>
-              <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <Input
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder='Re-type your password'
-                    {...field}
-                    onChange={(e) => {
-                      field.onChange(e);
-                      form.trigger('confirmPassword');
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-              <div className='flex items-center space-x-2'>
-                <Checkbox id='password' onCheckedChange={() => setShowPassword((prev) => !prev)} />
-                <label
-                  htmlFor='password'
-                  className='cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
-                >
-                  Show password
-                </label>
-              </div>
-            </div>
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <PasswordInput
+                  placeholder='Confirm your password'
+                  onFocus={() => setIsPasswordFocused(true)}
+                  onBlur={() => {
+                    onBlur();
+                    setIsPasswordFocused(false);
+                  }}
+                  {...restFields}
+                  onChange={(e) => {
+                    field.onChange(e);
+                    form.trigger(field.name);
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
           );
         }}
       />
