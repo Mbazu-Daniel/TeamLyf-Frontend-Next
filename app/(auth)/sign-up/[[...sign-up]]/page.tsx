@@ -4,7 +4,7 @@ import SignUpForm from '../_components/SignUpForm';
 
 const SignUpPage = () => {
   return (
-    <div className='m-auto flex h-screen w-full max-w-[1536px] items-center'>
+    <div className='m-auto flex h-screen w-screen max-w-screen-2xl items-center'>
       <LeftFormCard
         className='w-[720px]'
         title='Productivity at its peak'
