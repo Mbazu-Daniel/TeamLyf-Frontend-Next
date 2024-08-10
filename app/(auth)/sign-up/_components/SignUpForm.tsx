@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { useMutistepForm } from '@/constants/useMultiStepForm';
+import { useMutistepForm } from '@/hooks/useMultiStepForm';
 import { formSchema } from '@/validators/signup/formSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
