@@ -89,6 +89,7 @@ const SignUpForm = () => {
             <FormItem key={field.name}>
               <FormControl>
                 <PasswordInput
+                  className='bg-background px-3 py-2 text-sm ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-purple-300 focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
                   placeholder='Enter your password'
                   onFocus={() => setIsPasswordFocused(true)}
                   onBlur={() => {
@@ -116,6 +117,7 @@ const SignUpForm = () => {
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <PasswordInput
+                  className='bg-background px-3 py-2 text-sm ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-purple-300 focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
                   placeholder='Confirm your password'
                   onFocus={() => setIsPasswordFocused(true)}
                   onBlur={() => {
