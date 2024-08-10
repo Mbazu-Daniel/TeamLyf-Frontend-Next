@@ -20,7 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { countryOptions, FormDetails } from '@/constants/signup-form';
 import { Input } from '@/components/ui/input';
-import { CardHeading } from './CardHeading';
+import { CustomLogo as CardHeading } from '../../../../components/shared/CustomLogo';
 import HeadingDetail from './HeadingDetail';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
@@ -233,7 +233,7 @@ const SignUpForm = () => {
     // ╰─────────────────────────────────────────────────────────╯
     <div className='h-full w-[720px]'>
       <Card className='relative m-auto min-h-[474px] w-[592px] pb-14'>
-        <CardHeading>
+        <CardHeading width={180} height={34}>
           {FormDetails.map((detail) => {
             if (detail.step === currentStepIndex) {
               return (
