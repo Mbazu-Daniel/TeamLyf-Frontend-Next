@@ -13,7 +13,7 @@ type Props = {
 export const CustomLogo = ({ children, className, width, height }: Props) => {
   return (
     <CardHeader className={className}>
-      <Link href='/'>
+      <Link href='/' className='w-fit'>
         <Image src='/assets/lyfBlueLogo.svg' alt='Teamlyf Logo' width={width} height={height} />
       </Link>
       {children}
