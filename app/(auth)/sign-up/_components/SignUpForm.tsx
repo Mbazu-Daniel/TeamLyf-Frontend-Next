@@ -242,6 +242,7 @@ const SignUpForm = () => {
                   isFirstStep={isFirstStep}
                   back={back}
                   key={detail.step}
+                  watch={form.watch}
                 />
               );
             }

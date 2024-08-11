@@ -2,19 +2,19 @@ export const FormDetails = [
   { step: 0, info: '', description: '', title: 'Create Account' },
   {
     step: 1,
-    info: 'Johndoe@example.com',
+    info: 'email',
     description: "Enter the password you'd like to use with your account",
     title: 'Create Password',
   },
   {
     step: 2,
-    info: 'Create you business info',
+    info: 'Create your business info',
     description: 'Just a bit more info to enhance your Teamlyf experience',
     title: "What's your business name",
   },
   {
     step: 3,
-    info: '',
+    info: 'businessName',
     description: 'Teamlyf tailors your experience to resonate with your business',
     title: 'Where is your business located',
   },

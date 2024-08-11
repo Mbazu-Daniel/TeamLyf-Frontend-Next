@@ -26,7 +26,6 @@ const LeftFormCard = ({ title, message, className }: LeftFormCardProps) => {
         <p className='text-md text-center text-muted-foreground'>
           <span className='font-bold'>Teamlyf –</span>
           {message}
-
         </p>
       </div>
     </div>
