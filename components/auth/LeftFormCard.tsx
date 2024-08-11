@@ -1,6 +1,5 @@
 'use client';
 
-import logoIcon from '../../public/assets/lyfBlueLogo.svg';
 import productBag from '../../public/assets/images/Productivity3D.png';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';

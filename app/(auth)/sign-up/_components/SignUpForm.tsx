@@ -22,7 +22,6 @@ import { countryOptions, FormDetails } from '@/constants/signup-form';
 import { Input } from '@/components/ui/input';
 import { CustomLogo as CardHeading } from '../../../../components/shared/CustomLogo';
 import HeadingDetail from './HeadingDetail';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
 import {
   Select,
@@ -41,7 +40,6 @@ type InputValidation = z.infer<typeof formSchema>;
 
 const SignUpForm = () => {
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
