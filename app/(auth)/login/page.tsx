@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
-import BaseAuthentication from "@/components/auth/BaseAuthentication"
-import OpenEye from "@/public/assets/eyeopenicon.svg";
-import CloseEye from "@/public/assets/eyecloseicon.svg";
+import BaseAuthentication from "@/components/auth/BaseAuthentication" 
 import LeftFormCard from "@/components/auth/LeftFormCard";
 import BaseFormCard from "@/components/auth/BaseFormCard";
 import BaseBtn from "@/components/auth/BaseBtn";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/Label";
+import { Input } from "@/components/ui/input"; 
+import { Label } from "@/components/ui/label";
+import PasswordInput from "@/components/auth/PasswordInput";
 
 interface Inputs {
   email: string;
@@ -18,8 +16,6 @@ interface Inputs {
 }
 
 const LoginPage: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false);
-
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -37,33 +33,23 @@ const LoginPage: React.FC = () => {
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="input-section flex gap-4 flex-col">
             
             {/* Email Input Field */}
-            <Label htmlFor="email">Email Address</Label>
-            <Input
-              type="email"
-              placeholder="Example@gmail.com"
-              {...register("email", { required: "Please input a valid email" })}
-              intent="default"
-              inputSize="md"
-              error={errors.email?.message}
-            />
+            <div>
+              <Label htmlFor="email">Email Address</Label>
+              <Input
+                type="email"
+                placeholder="Example@gmail.com"
+                {...register("email", { required: "Please input a valid email" })}
+                intent="default"
+                inputSize="md"
+                error={errors.email?.message}
+              />
+            </div>
             
             {/* Password Input Field */}
-            <Label htmlFor="password">Password</Label>
-            <Input
-              type={showPassword ? "text" : "password"}
+            <PasswordInput
+              label="Password"
               placeholder="Your password"
-              {...register("password", { required: "Please provide a password" })}
-              intent="default"
-              inputSize="md"
-              rightIcon={
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((prevShow) => !prevShow)}
-                  className="text-sm leading-5"
-                >
-                  {showPassword ? <img src={OpenEye} className="w-5 h-5" alt="Hide password" /> : <img src={CloseEye} className="w-5 h-5" alt="Show password" />}
-                </button>
-              }
+              register={register}
               error={errors.password?.message}
             />
 
