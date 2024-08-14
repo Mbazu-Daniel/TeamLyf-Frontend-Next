@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import BaseAuthentication from "@/components/auth/BaseAuthentication" 
+import BaseAuthentication from "@/components/auth/BaseAuthentication";
 import LeftFormCard from "@/components/auth/LeftFormCard";
-import BaseFormCard from "@/components/auth/BaseFormCard";
-import BaseBtn from "@/components/auth/BaseBtn";
+import { Card } from "@/components/ui/card";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input"; 
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import PasswordInput from "@/components/auth/PasswordInput";
 
 interface Inputs {
@@ -29,7 +29,9 @@ const LoginPage: React.FC = () => {
         message="Teamlyf – where productivity meets collaboration at its peak. Elevate your work experience as Teamlyf seamlessly integrates tools and streamlines communication right at the core of your team's success."
       />
       <div className="form-pane pt-12 md:pt-0 bg-[#f0f5f8] px-8 md:px-24 flex flex-col justify-end pb-12">
-        <BaseFormCard heading="Login" title="Securely login to">
+        <Card className="bg-white p-8"> {/* Apply bg-white here */}
+          <h2 className="text-xl font-semibold mb-4">Login</h2>
+          <h3 className="text-lg mb-4">Securely login to</h3>
           <form onSubmit={handleSubmit(onSubmit)} noValidate className="input-section flex gap-4 flex-col">
             
             {/* Email Input Field */}
@@ -57,8 +59,12 @@ const LoginPage: React.FC = () => {
               Forgot Password
             </Link>
 
-            <BaseBtn btnTitle="Login" />
-
+            <Button 
+              type="submit" 
+              label="Login" 
+              intent="primary" 
+              size="sm" 
+            />
           </form>
           <BaseAuthentication />
           <div className="text-center mt-4">
@@ -69,7 +75,7 @@ const LoginPage: React.FC = () => {
               </Link>
             </p>
           </div>
-        </BaseFormCard>
+        </Card>
       </div>
     </div>
   );
