@@ -4,20 +4,12 @@ import * as z from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { formSchema } from '@/validators/signup/formSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -26,7 +18,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CustomLogo } from '@/components/shared/CustomLogo';
-import HeadingDetail from './HeadingDetail';
 import { useState } from 'react';
 import { PasswordInput } from '@/components/ui/password-input';
 import PasswordPopover from '@/components/shared/PasswordPopover';
@@ -70,7 +61,6 @@ const SignUpForm = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
               <FormField
-                key={1}
                 name='email'
                 control={form.control}
                 render={function ({ field }) {
@@ -87,7 +77,6 @@ const SignUpForm = () => {
               />
 
               <FormField
-                key={2}
                 name='password'
                 control={form.control}
                 render={function ({ field, fieldState }) {

@@ -35,6 +35,17 @@ const config = {
           500: 'hsla(263, 100%, 20%, 1)', // Darkest shade
           600: 'hsla(263, 100%, 10%, 1)', // Very dark shade
         },
+        gray: {
+          100: 'hsla(0, 0%, 90%, 0.5)',
+          200: 'hsla(0, 0%, 80%, 0.5)',
+          300: 'hsla(0, 0%, 70%, 0.5)',
+          400: 'hsla(0, 0%, 60%, 0.5)',
+          500: 'hsla(0, 0%, 50%, 0.5)',
+          600: 'hsla(0, 0%, 40%, 0.5)',
+          700: 'hsla(0, 0%, 30%, 0.5)',
+          800: 'hsla(0, 0%, 20%, 0.5)',
+          900: 'hsla(0, 0%, 10%, 0.5)',
+        },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
