@@ -1,35 +1,31 @@
-"use client";
+'use client';
 /* eslint-disable react/no-unknown-property */
-import { cn } from "@/lib/utils";
-import { VariantProps, cva } from "class-variance-authority";
-import React, { DetailedHTMLProps, InputHTMLAttributes } from "react";
+import { cn } from '@/lib/utils';
+import { VariantProps, cva } from 'class-variance-authority';
+import React, { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
 const inputVariants = cva(
-  "relative px-3.5 py-2.5 flex items-center justify-center gap-2 !focus:border-0 rounded-lg transition-all select-none shadow-xs focus-within-ring",
+  'relative px-3.5 py-2.5 flex items-center justify-center gap-2 !focus:border-0 rounded-lg transition-all select-none shadow-xs focus-within-ring bg-background px-3 py-2 text-sm ring-offset-background focus-within:outline-none focus-within:ring-2 focus-within:ring-purple-300 focus-within:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       intent: {
-        default:
-          "border-solid border border-input-border !focus:border-none text-black bg-white",
+        default: 'border-solid border border-input-border !focus:border-none text-black bg-white',
       },
       inputSize: {
-        sm: "text-sm py-2",
-        md: "text-base py-3",
-        lg: "text-lg py-4",
+        sm: 'text-sm py-2',
+        md: 'text-base py-3',
+        lg: 'text-lg py-4',
       },
     },
     defaultVariants: {
-      intent: "default",
-      inputSize: "sm",
+      intent: 'default',
+      inputSize: 'sm',
     },
   }
 );
 
 export interface InputVariants
-  extends DetailedHTMLProps<
-      InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    >,
+  extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
     VariantProps<typeof inputVariants> {}
 
 interface TextInputProps extends InputVariants {
@@ -63,7 +59,7 @@ const Input = React.forwardRef<HTMLInputElement, TextInputProps>(
     const classNames = cn(
       inputVariants({ intent, inputSize }),
       className,
-      disabled || isLoading ? "opacity-[.8] cursor-not-allowed" : ""
+      disabled || isLoading ? 'opacity-[.8] cursor-not-allowed' : ''
     );
 
     return (
@@ -73,10 +69,10 @@ const Input = React.forwardRef<HTMLInputElement, TextInputProps>(
           onChange={onChange}
           type={type}
           className={cn(
-            "hide-caret w-full bg-transparent outline-none placeholder:text-placeholder",
-            (disabled ?? isLoading) ? "cursor-not-allowed" : ""
+            'hide-caret placeholder:text-placeholder w-full bg-transparent outline-none',
+            (disabled ?? isLoading) ? 'cursor-not-allowed' : ''
           )}
-          placeholder={placeHolder ?? "Placeholder"}
+          placeholder={placeHolder ?? 'Placeholder'}
           disabled={isLoading ?? disabled}
           ref={ref}
           {...props}
@@ -100,6 +96,6 @@ const Input = React.forwardRef<HTMLInputElement, TextInputProps>(
   }
 );
 
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export { Input, type TextInputProps };
