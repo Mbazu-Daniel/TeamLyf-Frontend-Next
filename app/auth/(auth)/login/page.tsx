@@ -56,7 +56,7 @@ const LoginPage: React.FC = () => {
         title='Productivity at its peak'
         message="Where productivity meets collaboration at its peak. Elevate your work experience as Teamlyf seamlessly integrates tools and streamlines communication right at the core of your team's success."
       />
-      <div className="w-[720px]">
+      <div className="w-[45rem]">
         <Card className="mx-auto min-h-[474px] w-[592px] space-y-8">
           <CardHeader>
             <CardTitle className='text-2xl font-bold'>Login</CardTitle>
