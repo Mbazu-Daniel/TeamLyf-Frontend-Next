@@ -12,7 +12,7 @@ interface BaseFormCardProps {
 
 const BaseFormCard: React.FC<BaseFormCardProps> = ({ heading, title, children }) => {
   return (
-    <div className="bg-[#ffffff] p-8 text-xs min-h-[70vh]">
+    <div className="bg-white p-8 text-xs min-h-[70vh]">
       <h2 className="font-bold text-2xl">{heading}</h2>
       <div className="flex pb-8">
         <p>{title}</p>
