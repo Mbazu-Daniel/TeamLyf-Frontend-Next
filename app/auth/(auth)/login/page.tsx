@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import * as z from 'zod';
+import Logger from "@/utils/logger"
 import { useState } from 'react';
 import LeftFormCard from '@/components/auth/LeftFormCard';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -44,7 +45,7 @@ const LoginPage: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof loginFormSchema>> = (data) => {
-    console.log("Login Data:", data);
+    Logger.info("Login Data:", data);
     router.push('/');
   };
 
