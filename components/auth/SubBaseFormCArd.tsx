@@ -12,7 +12,7 @@ type BaseFormCardProps = {
 
 const BaseFormCard: React.FC<BaseFormCardProps> = ({ crumb, title, summary, children }) => {
   return (
-    <div className="bg-[#ffffff] p-8 text-xs min-h-[70vh]">
+    <div className="bg-white p-8 text-xs min-h-[70vh]">
       <div className="flex pb-8 gap-1 items-center">
         <HiArrowLongLeft />
         <h2 className="text-xs">{crumb}</h2>

@@ -15,7 +15,7 @@ const LeftFormCard = ({ title, message, className }: LeftFormCardProps) => {
   return (
     <div
       className={cn(
-        "left-pane hidden bg-[url('/assets/images/authBackground.png')] bg-cover bg-no-repeat p-6 pt-8 md:block",
+        "left-pane hidden bg-[url('/assets/images/authBackground.png')] bg-cover bg-no-repeat p-6 pt-8 md:block h-screen",
         className
       )}
     >
