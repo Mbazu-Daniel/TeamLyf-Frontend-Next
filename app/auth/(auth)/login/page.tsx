@@ -2,12 +2,11 @@
 
 import Link from 'next/link';
 import * as z from 'zod';
-import Logger from "@/utils/logger"
-import { useState } from 'react';
-import LeftFormCard from '@/components/auth/LeftFormCard';
+import Logger from "@/utils/logger";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -21,16 +20,15 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
-import PasswordInput from '@/components/auth/PasswordInput'; // Ensure this is the correct path
+import { PasswordInput } from '@/components/ui/password-input';
 import PasswordPopover from '@/components/shared/PasswordPopover'; 
-import { CustomLogo } from '@/components/shared/CustomLogo';
 import BaseAuthentication from '@/components/auth/BaseAuthentication';
+import LeftFormCard from '@/components/auth/LeftFormCard';
+import { CustomLogo } from '@/components/shared/CustomLogo';
 
 const LoginPage: React.FC = () => {
   const router = useRouter();
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
-  // Update form schema to match login fields
   const loginFormSchema = z.object({
     email: z.string().email({ message: "Invalid email address" }),
     password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
@@ -61,7 +59,7 @@ const LoginPage: React.FC = () => {
           <CardHeader>
             <CardTitle className='text-2xl font-bold'>Login</CardTitle>
             <div className='flex items-center gap-2 text-sm text-muted-foreground'>
-            Securely login to <CustomLogo width={72} height={14} />
+              Securely login to <CustomLogo width={72} height={14} />
             </div>
           </CardHeader>
             
@@ -85,24 +83,19 @@ const LoginPage: React.FC = () => {
                 <FormField
                   name='password'
                   control={form.control}
-                  render={({ field, fieldState }) => {
-                    const { onBlur, ...restFields } = field;
-                    return (
-                      <FormItem key={field.name}>
-                        <FormControl>
-                          <PasswordInput
-                            label="Password"
-                            placeholder="Enter your password"
-                            register={form.register}
-                            error={fieldState.error?.message}
-                          />
-                        </FormControl>
-                        {(!!fieldState.error?.message || isPasswordFocused) && (
-                          <PasswordPopover password={field.value} />
-                        )}
-                      </FormItem>
-                    );
-                  }}
+                  render={({ field, fieldState }) => (
+                    <FormItem key={field.name}>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <PasswordInput
+                          placeholder="Enter your password"
+                        />
+                      </FormControl>
+                      {(fieldState.error?.message) && (
+                        <PasswordPopover password={field.value} />
+                      )}
+                    </FormItem>
+                  )}
                 />
 
                 <div className='mt-4 flex justify-end'>
@@ -126,7 +119,7 @@ const LoginPage: React.FC = () => {
             <BaseAuthentication />
             <div className='flex justify-center gap-2 text-sm text-muted-foreground'>
               Don't have an account?
-              <Link href='/auth/signup' className='text-purple-700'>
+              <Link href='/auth/register' className='text-purple-700'>
                 Sign Up
               </Link>
             </div>
