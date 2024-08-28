@@ -1,7 +1,6 @@
-import { PASSWORD_REGEX } from "@/enum";
-import React, { useEffect, useState } from "react";
-import { FaRegCircleCheck } from "react-icons/fa6";
-import { FiAlertCircle } from "react-icons/fi";
+import { PASSWORD_REGEX } from '@/enum';
+import { CircleCheck, CircleAlert } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 
 interface PasswordRequirementProps {
   meets: boolean;
@@ -10,12 +9,12 @@ interface PasswordRequirementProps {
 
 function PasswordRequirement({ meets, label }: PasswordRequirementProps) {
   return (
-    <p className="flex items-center gap-x-2 text-sm">
+    <p className='flex items-center gap-x-2 text-sm'>
       {meets ? (
-        <FaRegCircleCheck className="text-primary" />
+        <CircleCheck className='text-primary' />
       ) : (
-        <FiAlertCircle className="text-destructive" />
-      )}{" "}
+        <CircleAlert className='text-destructive' />
+      )}{' '}
       <span>{label}</span>
     </p>
   );
@@ -35,23 +34,23 @@ const PasswordPopover: React.FC<PasswordPopoverProps> = ({ password }) => {
   const [requirements, setRequirements] = useState<Requirement[]>([
     {
       regEx: PASSWORD_REGEX.LENGTH,
-      label: "Minimum of 8 characters",
+      label: 'Minimum of 8 characters',
       meets: false,
     },
     {
       regEx: PASSWORD_REGEX.UPPERCASE,
-      label: "Uppercase letter",
+      label: 'Uppercase letter',
       meets: false,
     },
     {
       regEx: PASSWORD_REGEX.LOWERCASE,
-      label: "Lowercase letter",
+      label: 'Lowercase letter',
       meets: false,
     },
-    { regEx: PASSWORD_REGEX.NUMBER, label: "Number", meets: false },
+    { regEx: PASSWORD_REGEX.NUMBER, label: 'Number', meets: false },
     {
       regEx: PASSWORD_REGEX.SYMBOL,
-      label: "Includes special symbol",
+      label: 'Includes special symbol',
       meets: false,
     },
   ]);
@@ -68,7 +67,7 @@ const PasswordPopover: React.FC<PasswordPopoverProps> = ({ password }) => {
   if (requirements.every((requirement) => requirement.meets)) return null;
 
   return (
-    <div className="space-y-1 pt-1">
+    <div className='space-y-1 pt-1'>
       {requirements.map((requirement) => (
         <PasswordRequirement
           key={requirement.label}
