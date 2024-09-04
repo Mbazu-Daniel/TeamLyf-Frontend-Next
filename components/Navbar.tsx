@@ -18,6 +18,9 @@ export const Navbar = () => {
       />
       <div className="flex gap-2 items-center">
         <Switcher items={toolsSwitcher} heading="Settings" />
+        <div>mode</div>
+        <div>notification</div>
+        <div>Account</div>
       </div>
     </div>
   );
