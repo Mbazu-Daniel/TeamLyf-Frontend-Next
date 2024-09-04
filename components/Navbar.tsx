@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { SearchInput } from "./shared/SearchInput";
 import { SearchIcon } from "lucide-react";
+import { Switcher } from "./shared/Switcher";
+import { toolsSwitcher } from "@/constants/switcher/example";
 
 export const Navbar = () => {
   return (
@@ -14,5 +16,9 @@ export const Navbar = () => {
         placeHolder="search for projects, tasks, files, members..."
         className="w-80"
       />
+      <div className="flex gap-2 items-center">
+        <Switcher items={toolsSwitcher} heading="Settings" />
+      </div>
+    </div>
   );
 };
