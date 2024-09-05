@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 import { Ubuntu } from "next/font/google";
+
 import QueryClientWrapper from "@/lib/QueryClientProvider";
+import { ThemeProvider } from "@/components/theme-provider";
+
 import "./globals.css";
 
 const ubuntu = Ubuntu({
@@ -31,8 +34,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={ubuntu.className}>
         <QueryClientWrapper>
-          {children}
-          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            <Toaster />
+          </ThemeProvider>
         </QueryClientWrapper>
       </body>
     </html>
