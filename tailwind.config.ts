@@ -46,6 +46,9 @@ const config = {
           800: 'hsla(0, 0%, 20%, 0.5)',
           900: 'hsla(0, 0%, 10%, 0.5)',
         },
+        initials: {
+          100: 'hsl(152, 93%, 64%)'
+        },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
