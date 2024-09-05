@@ -4,6 +4,7 @@ import { SearchInput } from "./shared/SearchInput";
 import { SearchIcon } from "lucide-react";
 import { Switcher } from "./shared/Switcher";
 import { toolsSwitcher } from "@/constants/switcher/example";
+import { ThemeModeSwitcher } from "@/components/ThemeMode";
 
 export const Navbar = () => {
   return (
@@ -18,9 +19,10 @@ export const Navbar = () => {
       />
       <div className="flex gap-2 items-center">
         <Switcher items={toolsSwitcher} heading="Settings" />
-        <div>mode</div>
         <div>notification</div>
         <div>Account</div>
+
+        <ThemeModeSwitcher />
       </div>
     </div>
   );
