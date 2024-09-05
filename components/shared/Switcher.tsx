@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-import { Check, ChevronDown, Settings } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 import {
   Popover,
@@ -18,6 +17,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { WrenchIcon } from "@/components/icons/wrenchIcon";
 
 type ItemProps = {
   value: string;
@@ -32,8 +32,7 @@ interface SwitcherProps extends PopoverTriggerProps {
   heading: string;
 }
 
-export const Switcher = (props: SwitcherProps) => {
-  const { className, heading, items = [] } = props;
+export const Switcher = ({ className, heading, items = [] }: SwitcherProps) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
@@ -55,21 +54,14 @@ export const Switcher = (props: SwitcherProps) => {
             role="combobox"
             aria-expanded={open}
             aria-label="Select"
-            className={cn("w-32 bg-white rounded-xl text-gray-3", className)}
-            label={
-              <span className="inline-block w-20 truncate">{currentItem}</span>
-            }
-            leftIcon={
-              <Image
-                src="/assets/icons/wrench.svg"
-                width={24}
-                height={24}
-                alt="settings"
-              />
-            }
-            rightIcon={
-              <ChevronDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
-            }
+            className={cn(
+              "w-32 bg-white rounded-xl text-gray-3 px-1",
+              className,
+            )}
+            label={<span className="inline-block truncate">{currentItem}</span>}
+            leftIcon={<WrenchIcon className="shrink-0" />}
+            rightIconStyle="ml-auto"
+            rightIcon={<ChevronDown className="h-4 w-4 shrink-0 opacity-50" />}
           />
         </PopoverTrigger>
         <PopoverContent className="w-32 p-0">
@@ -88,13 +80,7 @@ export const Switcher = (props: SwitcherProps) => {
                       className="text-sm cursor-pointer"
                       value={item.value}
                     >
-                      <Image
-                        src="/assets/icons/wrench.svg"
-                        width={24}
-                        height={24}
-                        alt="settings"
-                        className="mr-2"
-                      />
+                      <WrenchIcon className="mr-2" />
                       {item.label}
                       <Check
                         className={cn(
