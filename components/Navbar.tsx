@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SearchInput } from "./shared/SearchInput";
 import { SearchIcon } from "lucide-react";
-import { Switcher } from "./shared/Switcher";
+
+import { SearchInput } from "@/components/shared/SearchInput";
+import { Switcher } from "@/components/shared/Switcher";
 import { toolsSwitcher } from "@/constants/switcher/example";
 import { ThemeModeSwitcher } from "@/components/ThemeMode";
 import { Notification } from "@/components/shared/Notification";
@@ -11,16 +12,18 @@ import { Account } from "@/components/Account";
 
 export const Navbar = () => {
   return (
-    <div className="bg-custom-200 py-6 px-3 flex justify-between items-center">
+    <div className="bg-custom-200 shadow-md dark:bg-primary-foreground py-6 px-8 flex justify-between items-center">
       <Link href="/" className="shrink-0">
         <Image src="/assets/icons/logo.svg" alt="logo" width={50} height={50} />
       </Link>
+
       <SearchInput
-        leftIcon={<SearchIcon className="w-5 h-5" stroke="#828282" />}
+        leftIcon={<SearchIcon className="w-5 h-5 opacity-50" />}
         placeHolder="search for projects, tasks, files, members..."
         className="w-80"
       />
-      <div className="flex gap-2 items-center">
+
+      <div className="flex space-x-6 items-center">
         <Switcher items={toolsSwitcher} heading="Settings" />
 
         <ThemeModeSwitcher />
