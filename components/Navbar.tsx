@@ -5,6 +5,8 @@ import { SearchIcon } from "lucide-react";
 import { Switcher } from "./shared/Switcher";
 import { toolsSwitcher } from "@/constants/switcher/example";
 import { ThemeModeSwitcher } from "@/components/ThemeMode";
+import { Notification } from "@/components/shared/Notification";
+import { NotificationIcon } from "@/components/icons/notificationIcon";
 
 export const Navbar = () => {
   return (
@@ -19,10 +21,11 @@ export const Navbar = () => {
       />
       <div className="flex gap-2 items-center">
         <Switcher items={toolsSwitcher} heading="Settings" />
-        <div>notification</div>
         <div>Account</div>
 
         <ThemeModeSwitcher />
+
+        <Notification count={2000} image={<NotificationIcon />} />
       </div>
     </div>
   );
