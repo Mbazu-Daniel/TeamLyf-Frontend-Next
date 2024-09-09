@@ -9,7 +9,6 @@ import { ThemeModeSwitcher } from "@/components/ThemeMode";
 import { Notification } from "@/components/shared/Notification";
 import { NotificationIcon } from "@/components/icons/notificationIcon";
 import { Account } from "@/components/Account";
-import { SidebarTrigger } from "./ui/sidebar";
 
 export const Navbar = () => {
   return (

@@ -1,11 +1,7 @@
 import { cn } from "@/lib/utils";
 import { IconProps } from "@/types";
 
-export const LogOutIcon = ({
-  className,
-  primaryColor,
-  secondaryColor,
-}: IconProps) => {
+export const LogOutIcon = ({ className }: IconProps) => {
   return (
     <svg
       className={cn("w-6 h-6 fill-none", className)}
