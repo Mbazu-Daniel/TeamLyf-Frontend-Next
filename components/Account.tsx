@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronDown } from "lucide-react";
+import { getNameAbbreviation } from "@/utils/getNameAbbreviation";
 
 interface Props {
   title: string;
@@ -19,15 +20,7 @@ export const Account = ({
   description,
   src = "/assets/icons/avatar.svg",
 }: Props) => {
-  const getAbbrevation = (str: string) => {
-    return str
-      .split(" ")
-      .map((name) => name[0])
-      .join("")
-      .toUpperCase();
-  };
-
-  const fallBack = getAbbrevation(title);
+  const fallBack = getNameAbbreviation(title);
 
   return (
     <DropdownMenu>

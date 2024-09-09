@@ -9,10 +9,11 @@ import { ThemeModeSwitcher } from "@/components/ThemeMode";
 import { Notification } from "@/components/shared/Notification";
 import { NotificationIcon } from "@/components/icons/notificationIcon";
 import { Account } from "@/components/Account";
+import { SidebarTrigger } from "./ui/sidebar";
 
 export const Navbar = () => {
   return (
-    <div className="bg-custom-200 shadow-md dark:bg-primary-foreground py-6 px-8 flex justify-between items-center">
+    <div className="bg-custom-2 border-b shadow-md dark:bg-primary-foreground py-6 px-8 flex justify-between items-center">
       <Link href="/" className="shrink-0">
         <Image src="/assets/icons/logo.svg" alt="logo" width={50} height={50} />
       </Link>
@@ -24,7 +25,12 @@ export const Navbar = () => {
       />
 
       <div className="flex space-x-6 items-center">
-        <Switcher items={toolsSwitcher} heading="Settings" />
+        <Switcher
+          items={toolsSwitcher}
+          heading="Settings"
+          className="hidden md:block"
+        />
+        {/* <SidebarTrigger className="md:hidden inline-flex" /> */}
 
         <ThemeModeSwitcher />
 
