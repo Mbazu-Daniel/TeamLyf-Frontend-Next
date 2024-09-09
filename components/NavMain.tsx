@@ -31,8 +31,10 @@ export function NavMain({
           <li>
             <div
               className={cn(
-                "relative flex items-center hover:text-accent-foreground py-2 px-3 font-medium rounded-md cursor-pointer transition-colors ",
-                pathname === item?.url ? "bg-custom-3" : "hover:bg-purple-100",
+                "relative flex items-center py-2 px-3 font-medium rounded-md cursor-pointer transition-colors  hover:text-custom-5",
+                pathname === item?.url
+                  ? "bg-custom-3 text-custom-5"
+                  : "hover:bg-purple-100",
               )}
             >
               <TooltipProvider>

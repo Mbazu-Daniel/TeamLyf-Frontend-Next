@@ -42,7 +42,7 @@ export function WorkspaceSwitcher({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="w-full rounded-md ring-ring hover:bg-purple-100 hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 data-[state=open]:bg-custom-4 transition-all">
+      <DropdownMenuTrigger className="w-full rounded-md ring-ring hover:bg-purple-100 hover:text-custom-5 focus-visible:outline-none focus-visible:ring-2 data-[state=open]:bg-custom-3 data-[state=open]:text-custom-5 transition-all">
         <div className="flex py-2 px-3 items-center gap-1.5 overflow-hidden text-left text-sm transition-all">
           <Avatar className="flex h-6 w-6 items-center justify-center mx-auto !rounded-sm bg-custom-6 text-primary-foreground">
             <AvatarFallback className="bg-[unset]">{fallback}</AvatarFallback>
