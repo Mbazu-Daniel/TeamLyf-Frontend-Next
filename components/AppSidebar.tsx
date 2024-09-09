@@ -109,7 +109,7 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
   };
   return (
     <Sidebar className="bg-custom-2 dark:bg-primary-foreground relative">
-      <div className="absolute top-0 -right-6">{children}</div>
+      <div className="absolute top-0 -right-3">{children}</div>
       <SidebarHeader>
         <WorkspaceSwitcher workspaces={data.workspaces} />
       </SidebarHeader>

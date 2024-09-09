@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { PanelLeft, PanelRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -89,9 +89,9 @@ const SidebarTrigger = React.forwardRef<
       }
       leftIcon={
         open ? (
-          <PanelRight className="h-6 w-6 text-gray-500" />
+          <ChevronRight className="h-6 w-6 text-background" />
         ) : (
-          <PanelLeft className="h-6 w-6 text-gray-500" />
+          <ChevronLeft className="h-6 w-6 text-background" />
         )
       }
     />
