@@ -14,7 +14,7 @@ export default function RootLayout({
         <div className="relative overflow-hidden">
           <SidebarLayout>
             <AppSidebar>
-              <SidebarTrigger />
+              <SidebarTrigger className="rounded-md bg-purple-100 p-1" />
             </AppSidebar>
             <main>{children}</main>
           </SidebarLayout>
