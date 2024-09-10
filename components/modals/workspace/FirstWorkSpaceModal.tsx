@@ -59,7 +59,7 @@ const FirstModal: React.FC<FirstModalProps> = ({ isOpen, onClose, onContinue }) 
     >
       <div className="bg-white rounded-2xl shadow-lg max-w-3xl w-full h-[28rem] flex overflow-hidden">
         {/* Left Section */}
-        <div className="flex-1 p-7">
+        <div className="flex-1 p-7 overflow-y-auto max-h-[28rem]">
           <h2 className="text-2xl font-bold">Create a project</h2>
           <p className="font-medium text-sm text-gray-800 pt-2 mb-4">
             A project contains a list of tasks, members, chat rooms, with its own workflow and settings.
@@ -195,3 +195,4 @@ const FirstModal: React.FC<FirstModalProps> = ({ isOpen, onClose, onContinue }) 
 };
 
 export default FirstModal;
+
