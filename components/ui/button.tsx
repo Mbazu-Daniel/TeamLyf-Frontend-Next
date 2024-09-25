@@ -33,7 +33,7 @@ const buttonVariants = cva(
       intent: "primary",
       size: "md",
     },
-  }
+  },
 );
 
 interface ButtonVariants
@@ -45,6 +45,7 @@ interface ButtonVariants
 
 interface ButtonProps extends ButtonVariants {
   className?: ComponentProps<"div">["className"];
+  rightIconStyle?: ComponentProps<"div">["className"];
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
   isLoading?: boolean;
@@ -65,9 +66,10 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       spinnerSize,
       label,
       className,
+      rightIconStyle,
       ...props
     },
-    ref
+    ref,
   ) => {
     const classNames = cn(buttonVariants(props), className);
 
@@ -87,7 +89,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             xmlns="http://www.w3.org/2000/svg"
             className={cn(
               "animate-spin transition",
-              isLoading ? "opacity-1 visible" : "hidden opacity-0"
+              isLoading ? "opacity-1 visible" : "hidden opacity-0",
             )}
           >
             <path
@@ -98,14 +100,16 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         </div>
         <p
           className={cn(
-            "flex items-center justify-center gap-2",
-            isLoading ? "opacity-90" : "opacity-1"
+            "w-full flex items-center justify-center gap-2",
+            isLoading ? "opacity-90" : "opacity-1",
+            rightIconStyle,
           )}
         >
           {leftIcon}
           {label}
           {rightIcon && (
             <span
+              className={cn("inline-block", rightIconStyle)}
               style={{
                 opacity: isLoading ? 0 : 1,
               }}
@@ -116,7 +120,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         </p>
       </button>
     );
-  }
+  },
 );
 Button.displayName = "Button";
 
