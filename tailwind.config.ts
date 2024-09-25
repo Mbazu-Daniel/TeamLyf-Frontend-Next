@@ -54,6 +54,9 @@ const config = {
           5: "hsla(266, 100%, 64%, 1)",
           6: "hsla(204, 70%, 53%, 1)",
         },
+        initials: {
+          100: 'hsl(152, 93%, 64%)'
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
