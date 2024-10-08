@@ -33,6 +33,7 @@
       "name": "Backend Team",
       "time": "3:45 PM",
       "minute": "9m",
+      "notifs": "",
       "comments": [
         { "postid": 1, "body": "Yea that is so nice" },
         { "postid": 2, "body": "Yea I had no idea" }
@@ -40,9 +41,10 @@
     },
     {
       "id": 2,
-      "name": "UI/Ux Team",
+      "name": "UI/UX Team",
       "time": "3:55 PM",
       "minute": "12m",
+      "notifs": 10,
       "comments": [
         { "postid": 1, "body": "Yea that is so nice" },
         { "postid": 2, "body": "Yea I had no idea" }

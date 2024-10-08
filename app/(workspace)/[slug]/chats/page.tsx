@@ -31,6 +31,7 @@ import {
 import { MessyIcon } from '@/components/icons/MessyIcon'
 import { SearchInput } from '@/components/shared/SearchInput'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 interface Query {
   id: string
@@ -44,7 +45,7 @@ interface Query {
 }
 
 async function fetchGroups (e: string): Promise<Query[]> {
-  const result = await fetch(`http://localhost:4000/` + e)
+  const result: Response = await fetch(`http://localhost:4000/${e}`)
   return result.json()
 }
 
@@ -52,12 +53,19 @@ export default function Chat () {
   const [querys, setQuerys] = useState<Query[]>([])
   const [tabTerm, setTabTerm] = useState<string>('Direct')
 
+  const handleTabChange = (value: string): void => {
+    setTabTerm(value)
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetchGroups(tabTerm)
-      setQuerys(result)
+    const fetchData = async (): Promise<void> => {
+      try {
+        const result: Query[] = await fetchGroups(tabTerm)
+        setQuerys(result)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
     }
-    console.log(querys)
     fetchData()
   }, [tabTerm])
 
@@ -74,26 +82,30 @@ export default function Chat () {
                 </span>
               </div>
               <div className='grid gap-3 h-full w-full'>
-                <Tabs defaultValue='direct' className='w-full'>
+                <Tabs
+                  defaultValue={tabTerm}
+                  onValueChange={handleTabChange}
+                  className='w-full'
+                >
                   <TabsList className='w-full h-auto p-1.5 rounded-xl mb-4'>
                     <TabsTrigger
-                      value='direct'
+                      value='Direct'
                       className='px-5 py-2 w-6/12 text-base'
                     >
                       Direct
                     </TabsTrigger>
                     <TabsTrigger
-                      value='groups'
+                      value='Groups'
                       className='px-5 py-2 w-6/12 text-base'
                     >
                       Groups
                     </TabsTrigger>
                   </TabsList>
-                  <TabsContent className='w-full h-full' value='direct'>
+                  <TabsContent className='w-full h-full' value={tabTerm}>
                     <div className='grid gap-3'>
                       <div className='flex justify-between align-center mb-8'>
                         <div className='flex w-6/12 gap-x-2  align-center align-middle text-sm'>
-                          <img
+                          <Image
                             src='../assets/icons/chat.svg'
                             alt='icon'
                             width='24'
@@ -101,7 +113,7 @@ export default function Chat () {
                           />
                           <p>All</p>
                           <span className='bg-gray-300 border rounded-md px-1 text-purple-900 text-sm text-center'>
-                            32
+                            {querys.length}
                           </span>
                         </div>
                         <div className='flex w-6/12 gap-x-2 align-center justify-end text-center'>
@@ -138,7 +150,7 @@ export default function Chat () {
                           <div className='h-[710px] grid place-content-center'>
                             <div className='p-6 h-full'>
                               <p className='text-base font-bold text-gray-300 text-center'>
-                                You don't have direct chats yet
+                                You don't have {tabTerm} chats yet
                               </p>
                             </div>
                           </div>
@@ -160,14 +172,20 @@ export default function Chat () {
                                       />
                                       <AvatarFallback>CN</AvatarFallback>
                                     </Avatar>
-                                    <div className=' absolute w-3 h-3 rounded-full bg-white right-0 bottom-1 grid place-items-center'>
-                                      {/* online status */}
-                                      {query?.status === 'online' ? (
+
+                                    {/* online status */}
+                                    {tabTerm === 'Direct' &&
+                                    query?.status == 'online' ? (
+                                      <div className=' absolute w-3 h-3 rounded-full bg-white right-0 bottom-1 grid place-items-center'>
                                         <div className='bg-green-500 w-2 h-2 rounded-full'></div>
-                                      ) : (
+                                      </div>
+                                    ) : tabTerm === 'Groups' ? (
+                                      <div className='hidden'></div>
+                                    ) : (
+                                      <div className=' absolute w-3 h-3 rounded-full bg-white right-0 bottom-1 grid place-items-center'>
                                         <div className='bg-gray-900 w-2 h-2 rounded-full'></div>
-                                      )}
-                                    </div>
+                                      </div>
+                                    )}
                                   </div>
                                   {/* names and alias */}
                                   <div className=''>
@@ -188,13 +206,16 @@ export default function Chat () {
                                   </ul>
                                   <div className='w-6 text-center'>
                                     {/* when there is pendind notifs */}
-                                    <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
-                                      {query?.notifs}
-                                    </div>
-                                    {/* when the message is read */}
-                                    {/* <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
-                                <CheckCheckIcon className='w-5 h-5' />
-                              </div> */}
+                                    {query?.notifs > 0 ? (
+                                      <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
+                                        {query?.notifs}
+                                      </div>
+                                    ) : (
+                                      //  when the message is read
+                                      <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
+                                        <CheckCheckIcon className='w-5 h-5' />
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                               </div>
@@ -202,201 +223,7 @@ export default function Chat () {
                             </>
                           ))
                         )}
-
-                        {/* <div className='w-full h-full px-2 py-3 cursor-pointer flex justify-between items-center hover:bg-gray-200 active:bg-gray-200'>
-                          <div className='w-8/12 h-20 flex gap-2 items-center'>
-                            <div className='relative'>
-                              <Avatar className='w-12 h-12'>
-                                <AvatarImage
-                                  src='https://github.com/shadcn.png'
-                                  alt='@shadcn'
-                                />
-                                <AvatarFallback>CN</AvatarFallback>
-                              </Avatar>
-                              <div className=' absolute w-2.5 h-2.5 rounded-full bg-white right-0.5 bottom-1 grid place-items-center'>
-                                <div className='bg-green-500 w-2 h-2 rounded-full'></div>
-                              </div>
-                            </div>
-                            <div className=''>
-                              <h2 className='text-sm font-bold text-black-900'>
-                                Adura O.
-                              </h2>
-                              <p className='text-xs text-black-900 opacity-50'>
-                                @aduraOgunlade
-                              </p>
-                            </div>
-                          </div>
-                          <div className='flex items-end flex-col'>
-                            <ul className='list-disc list-inside mr-1 text-sm'>
-                              <li className=' text-gray-700 font-medium mb-0.5'>
-                                9m
-                              </li>
-                            </ul>
-                            <div className='w-6 text-center'> */}
-                        {/* when there is pendind notifs */}
-                        {/* <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
-                                5
-                              </div> */}
-                        {/* when the message is read */}
-                        {/* <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
-                                <CheckCheckIcon className='w-5 h-5' />
-                              </div>
-                            </div>
-                          </div>
-                        </div> */}
-                        {/* <Separator /> */}
                       </ScrollArea>
-                    </div>
-                    <div className='relative bottom-0 w-full'>
-                      <button className='text-purple-900 w-full p-3 text-center bg-gray-500 rounded-lg'>
-                        Start new conversations
-                      </button>
-                    </div>
-                  </TabsContent>
-                  <TabsContent className='w-full h-full' value='groups'>
-                    <div className='grid gap-3'>
-                      <div className='flex justify-between align-center mb-8'>
-                        <div className='flex w-6/12 gap-x-2  align-center align-middle text-sm'>
-                          <img
-                            src='../assets/icons/chat.svg'
-                            alt='icon'
-                            width='24'
-                            height='12'
-                          />
-                          <p>All</p>
-                          <span className='bg-gray-300 border rounded-md px-1 text-purple-900 text-sm text-center'>
-                            32
-                          </span>
-                        </div>
-                        <div className='flex w-6/12 gap-x-2 align-center justify-end text-center'>
-                          <SlidersHorizontalIcon className='text-gray-600 h-6 w-6 bg-gray-300 p-1 rounded-md' />
-                          <DropdownMenu>
-                            <DropdownMenuTrigger className='flex align-center justify-center gap-x-2 align-middle text-sm'>
-                              Latest
-                              <span className='text-center inline'>
-                                <ChevronDownIcon className='w-5 h-5 my-0.5' />
-                              </span>
-                            </DropdownMenuTrigger>
-                            {/* <DropdownMenuContent>
-                                <DropdownMenuLabel>
-                                  My Account
-                                </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <DropdownMenuItem>Profile</DropdownMenuItem>
-                                <DropdownMenuItem>Billing</DropdownMenuItem>
-                                <DropdownMenuItem>Team</DropdownMenuItem>
-                                <DropdownMenuItem>
-                                  Subscription
-                                </DropdownMenuItem>
-                              </DropdownMenuContent> */}
-                          </DropdownMenu>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className='mb-4'>
-                      {/* if there are chats present, this code section will activate and run */}
-                      <ScrollArea className='h-[715px] w-full px-3 py-1 rounded-md border '>
-                        <div className='w-full h-full px-2 py-3 cursor-pointer hover:bg-gray-200 active:bg-gray-200 flex justify-between items-center'>
-                          <div className='w-8/12 h-20  flex gap-2 items-center'>
-                            <div className='relative'>
-                              <Avatar className='w-12 h-12 rounded-sm'>
-                                <AvatarImage
-                                  src='https://github.com/shadcn.png'
-                                  alt='@shadcn'
-                                />
-                                <AvatarFallback>D</AvatarFallback>
-                              </Avatar>
-                              {/* online status */}
-                              {/* <div className=' absolute w-2.5 h-2.5 rounded-full bg-white right-0.5 bottom-1 grid place-items-center'>
-                                <div className='bg-gray-900 w-2 h-2 rounded-full'></div>
-                              </div> */}
-                            </div>
-                            <div className=''>
-                              <h2 className='text-sm font-bold text-black-900'>
-                                UI/UX Team
-                              </h2>
-                            </div>
-                          </div>
-                          <div className='flex items-end flex-col'>
-                            <ul className='list-disc list-inside mr-1 text-sm'>
-                              <li className=' text-gray-700 font-medium mb-0.5'>
-                                9m
-                              </li>
-                            </ul>
-                            <div className='w-6 text-center'>
-                              {/* when there is pendind notifs */}
-                              <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
-                                5
-                              </div>
-                              {/* when the message is read */}
-                              {/* <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
-                                <CheckCheckIcon className='w-5 h-5' />
-                              </div> */}
-                            </div>
-                          </div>
-                        </div>
-                        <Separator />
-                        <div className='w-full  h-full px-2 py-3 cursor-pointer hover:bg-gray-200 active:bg-gray-200 flex justify-between items-center'>
-                          {/* avatar area */}
-                          <div className='w-8/12 h-20  flex gap-2 items-center'>
-                            <div className='relative'>
-                              <Avatar className='w-12 h-12 rounded-sm'>
-                                <AvatarImage
-                                  src='https://github.com/shadcn.png'
-                                  alt='@shadcn'
-                                />
-                                <AvatarFallback>D</AvatarFallback>
-                              </Avatar>
-                              {/* online status */}
-                              {/* <div className=' absolute w-2.5 h-2.5 rounded-full bg-white right-0.5 bottom-1 grid place-items-center'>
-                                <div className='bg-gray-900 w-2 h-2 rounded-full'></div>
-                              </div> */}
-                            </div>
-                            <div className=''>
-                              <h2 className='text-sm font-bold text-black-900'>
-                                Backend Team
-                              </h2>
-                            </div>
-                          </div>
-                          {/* notifs area */}
-                          <div className='flex items-end flex-col'>
-                            <ul className='list-disc list-inside mr-1 text-sm'>
-                              <li className=' text-gray-700 font-medium mb-0.5'>
-                                9m
-                              </li>
-                            </ul>
-                            <div className='w-6 text-center'>
-                              {/* when there is pendind notifs */}
-                              {/* <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
-                                5
-                              </div> */}
-                              {/* when the message is read */}
-                              <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
-                                <CheckCheckIcon className='w-5 h-5' />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <Separator />
-                      </ScrollArea>
-                      {/* Activates if there are no chats present */}
-                      {/* 
-                      <ScrollArea className='h-[715px] w-72 p-3 rounded-md border grid place-content-center'>
-                        <div className='p-6 h-full'>
-                          <p className='text-base font-bold text-gray-300 text-center'>
-                            You don't have group chats yet
-                          </p>
-                        </div>
-                      </ScrollArea> */}
-
-                      {/* <ScrollArea className='h-[715px] w-72 p-3 rounded-md border grid place-content-center'>
-                        <div className='p-6 h-full'>
-                          <p className='text-base font-bold text-gray-300 text-center'>
-                            You don't have group chats yet
-                          </p>
-                        </div>
-                      </ScrollArea> */}
                     </div>
                     <div className='relative bottom-0 w-full'>
                       <button className='text-purple-900 w-full p-3 text-center bg-gray-500 rounded-lg'>
