@@ -1,3 +1,4 @@
+'use client'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -24,15 +25,42 @@ import {
   Key,
   ChevronDownIcon,
   CheckCheckIcon,
-  SlidersHorizontalIcon
+  SlidersHorizontalIcon,
+  PipetteIcon
 } from 'lucide-react'
 import { MessyIcon } from '@/components/icons/MessyIcon'
 import { SearchInput } from '@/components/shared/SearchInput'
+import { useState, useEffect } from 'react'
 
-export const description =
-  'An AI playground with a sidebar navigation and a main content area. The playground has a header with a settings drawer and a share button. The sidebar has navigation links and a user menu. The main content area shows a form to configure the model and messages.'
+interface Query {
+  id: string
+  name: string
+  alias: string
+  time: string
+  minute: string
+  notifs: number
+  status: string
+  comments: [{ postid: string; body: string }]
+}
+
+async function fetchGroups (e: string): Promise<Query[]> {
+  const result = await fetch(`http://localhost:4000/` + e)
+  return result.json()
+}
 
 export default function Chat () {
+  const [querys, setQuerys] = useState<Query[]>([])
+  const [tabTerm, setTabTerm] = useState<string>('Direct')
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetchGroups(tabTerm)
+      setQuerys(result)
+    }
+    console.log(querys)
+    fetchData()
+  }, [tabTerm])
+
   return (
     <div className='grid h-full py-6 '>
       <div className='flex flex-col border rounded-lg h-screen'>
@@ -103,51 +131,79 @@ export default function Chat () {
                     </div>
                     <div className='mb-4'>
                       {/* if there are chats present, this code section will activate and run */}
+
                       <ScrollArea className='h-[715px] w-full px-3 py-1 rounded-md border '>
-                        <div className='w-full  h-full px-2 py-3 cursor-pointer hover:bg-gray-200 active:bg-gray-200 flex justify-between items-center'>
-                          <div className='w-8/12 h-20  flex gap-2 items-center'>
-                            <div className='relative'>
-                              <Avatar className='w-12 h-12'>
-                                <AvatarImage
-                                  src='https://github.com/shadcn.png'
-                                  alt='@shadcn'
-                                />
-                                <AvatarFallback>CN</AvatarFallback>
-                              </Avatar>
-                              <div className=' absolute w-2.5 h-2.5 rounded-full bg-white right-0.5 bottom-1 grid place-items-center'>
-                                <div className='bg-gray-900 w-2 h-2 rounded-full'></div>
-                              </div>
-                            </div>
-                            <div className=''>
-                              <h2 className='text-sm font-bold text-black-900'>
-                                Adura O.
-                              </h2>
-                              <p className='text-xs text-black-900 opacity-50'>
-                                @aduraOgunlade
+                        {/* Activates if there are no chats present */}
+                        {querys.length == 0 ? (
+                          <div className='h-[710px] grid place-content-center'>
+                            <div className='p-6 h-full'>
+                              <p className='text-base font-bold text-gray-300 text-center'>
+                                You don't have direct chats yet
                               </p>
                             </div>
                           </div>
-                          <div className='flex items-end flex-col'>
-                            <ul className='list-disc list-inside mr-1 text-sm'>
-                              <li className=' text-gray-700 font-medium mb-0.5'>
-                                9m
-                              </li>
-                            </ul>
-                            <div className='w-6 text-center'>
-                              {/* when there is pendind notifs */}
-                              <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
-                                5
-                              </div>
-                              {/* when the message is read */}
-                              {/* <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
+                        ) : (
+                          // if there are chats present, this code section will activate and run
+                          querys.map(query => (
+                            <>
+                              <div
+                                key={query.id}
+                                className='w-full  h-full px-2 py-3 cursor-pointer hover:bg-gray-200 active:bg-gray-200 flex justify-between items-center'
+                              >
+                                <div className='w-8/12 h-20  flex gap-2 items-center'>
+                                  {/* Avatar and online status */}
+                                  <div className='relative'>
+                                    <Avatar className='w-12 h-12'>
+                                      <AvatarImage
+                                        src='https://github.com/shadcn.png'
+                                        alt='@shadcn'
+                                      />
+                                      <AvatarFallback>CN</AvatarFallback>
+                                    </Avatar>
+                                    <div className=' absolute w-3 h-3 rounded-full bg-white right-0 bottom-1 grid place-items-center'>
+                                      {/* online status */}
+                                      {query?.status === 'online' ? (
+                                        <div className='bg-green-500 w-2 h-2 rounded-full'></div>
+                                      ) : (
+                                        <div className='bg-gray-900 w-2 h-2 rounded-full'></div>
+                                      )}
+                                    </div>
+                                  </div>
+                                  {/* names and alias */}
+                                  <div className=''>
+                                    <h2 className='text-sm font-bold text-black-900'>
+                                      {query.name}
+                                    </h2>
+                                    <p className='text-xs text-black-900 opacity-50'>
+                                      {query?.alias}
+                                    </p>
+                                  </div>
+                                </div>
+                                {/* time and notifs */}
+                                <div className='flex items-end flex-col'>
+                                  <ul className='list-disc list-inside mr-1 text-sm'>
+                                    <li className=' text-gray-700 font-medium mb-0.5'>
+                                      {query?.minute}
+                                    </li>
+                                  </ul>
+                                  <div className='w-6 text-center'>
+                                    {/* when there is pendind notifs */}
+                                    <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
+                                      {query?.notifs}
+                                    </div>
+                                    {/* when the message is read */}
+                                    {/* <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
                                 <CheckCheckIcon className='w-5 h-5' />
                               </div> */}
-                            </div>
-                          </div>
-                        </div>
-                        <Separator />
+                                  </div>
+                                </div>
+                              </div>
+                              <Separator />
+                            </>
+                          ))
+                        )}
 
-                        <div className='w-full h-full px-2 py-3 cursor-pointer flex justify-between items-center hover:bg-gray-200 active:bg-gray-200'>
+                        {/* <div className='w-full h-full px-2 py-3 cursor-pointer flex justify-between items-center hover:bg-gray-200 active:bg-gray-200'>
                           <div className='w-8/12 h-20 flex gap-2 items-center'>
                             <div className='relative'>
                               <Avatar className='w-12 h-12'>
@@ -176,29 +232,20 @@ export default function Chat () {
                                 9m
                               </li>
                             </ul>
-                            <div className='w-6 text-center'>
-                              {/* when there is pendind notifs */}
-                              {/* <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
+                            <div className='w-6 text-center'> */}
+                        {/* when there is pendind notifs */}
+                        {/* <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
                                 5
                               </div> */}
-                              {/* when the message is read */}
-                              <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
+                        {/* when the message is read */}
+                        {/* <div className='rounded-full w-full text-purple-800 bg-transparent text-center'>
                                 <CheckCheckIcon className='w-5 h-5' />
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <Separator />
+                        </div> */}
+                        {/* <Separator /> */}
                       </ScrollArea>
-                      {/* Activates if there are no chats present */}
-                      {/* 
-                      <ScrollArea className='h-[715px] w-72 p-3 rounded-md border grid place-content-center'>
-                        <div className='p-6 h-full'>
-                          <p className='text-base font-bold text-gray-300 text-center'>
-                            You don't have direct chats yet
-                          </p>
-                        </div>
-                      </ScrollArea> */}
                     </div>
                     <div className='relative bottom-0 w-full'>
                       <button className='text-purple-900 w-full p-3 text-center bg-gray-500 rounded-lg'>
@@ -361,6 +408,7 @@ export default function Chat () {
               </div>
             </div>
           </div>
+          {/* Chat region */}
           <div className='relative flex h-full w-full flex-col rounded-xl bg-muted/50 py-4 md:col-span-2'>
             <div className='flex w-full h-20 px-4'>
               {/* Private chats activated */}
@@ -422,15 +470,71 @@ export default function Chat () {
               </div>
             </div>
             {/* chat area where conversations are displayed */}
-            <section className=' pt-0.5 p-6 h-[817px] w-full'>
-              <ScrollArea className='h-[789px] border-red-400 border mb-4'>
+            <section className=' pt-0.5 h-[817px] w-full'>
+              {/* pinned chat area */}
+              {/* <div className='flex gap-4 px-8 items-center h-14 bg-[#fdf7fc] '>
+                <div>
+                  <PipetteIcon className='w-6 h-6 text-gray-900' />
+                </div>
+                <div className='relative'>
+                  <Avatar className='w-8 h-8'>
+                    <AvatarImage
+                      src='https://github.com/shadcn.png'
+                      alt='@shadcn'
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </div>
+                <div>
+                  <div className=' flex gap-8 items-center'>
+                    <h2 className='text-sm font-normal text-blue-500'>
+                      Marcus Felix
+                    </h2>
+                    <ul className='text-sm text-black text-opacity-80 font-medium'>
+                      <li>
+                        Hey everybody, do not forget the review meeting coming
+                        up 8px this saturday!
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div> */}
+
+              <ScrollArea className='h-[789px] mb-4 mx-6'>
                 <div className='w-full h-full relative'>
                   <div className='absolute rounded-lg w-fit px-3 py-1.5 top-6 left-1/2 transform translate-x-1/2 bg-white text-black text-opacity-70 text-sm'>
                     Today
                   </div>
-
-                  {/* chats area */}
-                  <div className='w-full border border-green-600 justify-start'>
+                  {/* pinned chat area */}
+                  {/* <div className='flex gap-2 items-center h-14 bg-[#fdf7fc] '>
+                    <div>
+                      <PipetteIcon className='w-6 h-6 text-gray-900' />
+                    </div>
+                    <div className='relative'>
+                      <Avatar className='w-8 h-8'>
+                        <AvatarImage
+                          src='https://github.com/shadcn.png'
+                          alt='@shadcn'
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div>
+                      <div className=' flex gap-8 items-center'>
+                        <h2 className='text-sm font-normal text-blue-500'>
+                          Marcus Felix
+                        </h2>
+                        <ul className='text-sm text-black text-opacity-80 font-medium'>
+                          <li>
+                            Hey everybody, do not forget the review meeting
+                            coming up 8px this saturday!
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div> */}
+                  {/* chats body area */}
+                  <div className='w-ful justify-start pt-4'>
                     <div className='flex gap-2 items-center'>
                       <div className='relative'>
                         <Avatar className='w-8 h-8'>
@@ -476,6 +580,7 @@ export default function Chat () {
                   </p>
                 </div> */}
               </ScrollArea>
+              {/* chat area located at the bottom of the chat display container where messages are typed and forwarded */}
               <div className='flex items-center justify-between bg-white rounded-xl px-4 py-2'>
                 <Input
                   type='text'
