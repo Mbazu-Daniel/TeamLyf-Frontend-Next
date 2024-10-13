@@ -74,24 +74,25 @@ export default function Chat () {
   }, [tabTerm])
 
   return (
-    <div className='grid h-full py-6 '>
-      <div className='flex flex-col border rounded-lg h-screen'>
-        <main className='flex w-[1640px] gap-4 p-4 '>
-          <div className='relative hidden flex-col items-start gap-8 md:flex w-4/12'>
-            <div className='flex flex-col w-full items-start gap-7 h-full'>
-              <div className='-ml-1 px-1 text-sm font-medium h-auto'>
-                <h1 className='font-bold text-2xl mb-0.5'>Chats</h1>
-                <span className='text-sm font-medium'>
+    // the padding right needs to auto adjust to the sidebar width. If the sidebar is collapsed, the padding needs to auto recalculate and adjust to the sidebar width.
+    <div className='grid min-w-full w-screen py-6 pr-[calc(var(--sidebar-width)+2rem)]'>
+      <div className='flex flex-col border rounded-lg h-[calc(100vh-6rem)]'>
+        <div className='flex h-full min-h-full'>
+          <section className='relative hidden flex-col items-start gap-8 md:flex w-1/3 p-6 bg-white'>
+            <div className='flex flex-col w-full items-start gap-7 min-h-full relative'>
+              <div className='text-sm font-medium '>
+                <h1 className='font-bold text-2xl mb-2'>Chats</h1>
+                <span className='text-sm font-medium text-gray-900'>
                   Chats with your teammates here
                 </span>
               </div>
-              <div className='grid gap-3 h-full w-full'>
+              <div className='grid gap-1 w-full h-full'>
                 <Tabs
                   defaultValue={tabTerm}
                   onValueChange={handleTabChange}
                   className='w-full'
                 >
-                  <TabsList className='w-full h-auto p-1.5 rounded-xl mb-4'>
+                  <TabsList className='w-full h-auto p-2 rounded-xl mb-4 bg-gray-100'>
                     <TabsTrigger
                       value='Direct'
                       className='px-5 py-2 w-6/12 text-base'
@@ -105,28 +106,28 @@ export default function Chat () {
                       Groups
                     </TabsTrigger>
                   </TabsList>
-                  <TabsContent className='w-full h-full' value={tabTerm}>
+                  <TabsContent className='w-full h-auto' value={tabTerm}>
                     <div className='grid gap-3'>
                       <div className='flex justify-between align-center mb-8'>
-                        <div className='flex w-6/12 gap-x-2  align-center align-middle text-sm'>
+                        <div className='flex w-6/12 gap-x-2 items-center align-middle text-sm'>
                           <Image
                             src='../assets/icons/chat.svg'
                             alt='icon'
                             width='24'
-                            height='12'
+                            height='24'
                           />
-                          <p>All</p>
-                          <span className='bg-gray-300 border rounded-md px-1 text-purple-900 text-sm text-center'>
+                          <p className='text-base font-normal'>All</p>
+                          <span className='bg-gray-100 border rounded-md text-base font-normal px-1.5 text-purple-900 text-center'>
                             {querys.length}
                           </span>
                         </div>
-                        <div className='flex w-6/12 gap-x-2 align-center justify-end text-center'>
-                          <SlidersHorizontalIcon className='text-gray-600 h-6 w-6 bg-gray-300 p-1 rounded-md' />
+                        <div className='flex w-6/12 gap-x-3 items-center justify-end text-center'>
+                          <SlidersHorizontalIcon className='text-gray-600 h-6 w-6 bg-gray-100 p-1 rounded-md' />
                           <DropdownMenu>
-                            <DropdownMenuTrigger className='flex align-center justify-center gap-x-2 align-middle text-sm'>
+                            <DropdownMenuTrigger className='flex items-center gap-x-2 font-normal text-base'>
                               Latest
-                              <span className='text-center inline'>
-                                <ChevronDownIcon className='w-5 h-5 my-0.5' />
+                              <span>
+                                <ChevronDownIcon />
                               </span>
                             </DropdownMenuTrigger>
                             {/* <DropdownMenuContent>
@@ -145,13 +146,14 @@ export default function Chat () {
                         </div>
                       </div>
                     </div>
-                    <div className='mb-4'>
+                    {/* had to subtract 432px so the box can take the required height at all times */}
+                    <div className='mb-8 h-[calc(100vh-27rem)]'>
                       {/* if there are chats present, this code section will activate and run */}
 
-                      <ScrollArea className='h-[715px] w-full px-3 py-1 rounded-md border '>
+                      <ScrollArea className=' w-full px-3 h-full'>
                         {/* Activates if there are no chats present */}
                         {querys.length == 0 ? (
-                          <div className='h-[710px] grid place-content-center'>
+                          <div className='h-[calc(100vh-27rem)] grid place-content-center'>
                             <div className='p-6 h-full'>
                               <p className='text-base font-bold text-gray-300 text-center'>
                                 You don't have {tabTerm} chats yet
@@ -164,7 +166,7 @@ export default function Chat () {
                             <>
                               <div
                                 key={query.id}
-                                className='w-full  h-full px-2 py-3 cursor-pointer hover:bg-gray-200 active:bg-gray-200 flex justify-between items-center'
+                                className='w-full px-2 py-4 cursor-pointer hover:bg-gray-200 active:bg-gray-200 flex justify-between items-center'
                               >
                                 <div className='w-8/12 h-20  flex gap-2 items-center'>
                                   {/* Avatar and online status */}
@@ -221,7 +223,7 @@ export default function Chat () {
                                   <div className='w-6 text-center'>
                                     {/* when there is pendind notifs */}
                                     {query?.notifs > 0 ? (
-                                      <div className='rounded-full p-1 bg-gray-200 w-full font-bold text-purple-900 text-xs'>
+                                      <div className='rounded-full p-1 bg-gray-100 w-full font-bold text-purple-900 text-xs'>
                                         {query?.notifs}
                                       </div>
                                     ) : (
@@ -239,8 +241,8 @@ export default function Chat () {
                         )}
                       </ScrollArea>
                     </div>
-                    <div className='relative bottom-0 w-full'>
-                      <button className='text-purple-900 w-full p-3 text-center bg-gray-500 rounded-lg'>
+                    <div className='absolute bottom-0 w-full'>
+                      <button className='text-purple-900 w-full p-3 text-center bg-gray-200 rounded-lg'>
                         Start new conversations
                       </button>
                     </div>
@@ -248,10 +250,10 @@ export default function Chat () {
                 </Tabs>
               </div>
             </div>
-          </div>
+          </section>
           {/* Chat region */}
-          <div className='relative flex h-full w-full flex-col rounded-xl bg-muted/50 py-4 md:col-span-2'>
-            <div className='flex w-full h-20 px-4'>
+          <div className='flex h-full w-full flex-col rounded-xl py-4 md:col-span-2 bg-gray-100'>
+            <section className='flex w-full h-20 px-4'>
               {/* Private chats activated */}
               <div className='w-4/12 flex gap-3 items-center'>
                 {tabTerm === 'Groups' ? (
@@ -301,36 +303,37 @@ export default function Chat () {
                   </>
                 )}
               </div>
-
+{/* Adjust the width here */}
               <div className='w-8/12 flex items-center gap-3 justify-end'>
-                <div className='flex gap-2 content-center text-center justify-center text-base text-purple-800 align-middle'>
+                <div className='flex gap-2 items-center text-center justify-center text-base text-purple-300 align-middle'>
                   {tabTerm === 'Groups' ? (
                     <></>
                   ) : (
-                    <>
-                      <PlusIcon className='p-1 bg-gray-600 rounded w-5 h-5' />
+                    <div className='items-center flex gap-2'>
+                      <PlusIcon className='p-1 bg-white rounded w-6 h-6' />
                       Add to a team
-                    </>
+                    </div>
                   )}
                 </div>
                 <div className='relative '>
                   <SearchInput
                     leftIcon={<SearchIcon className='w-6 h-6 opacity-50' />}
                     placeHolder='Search...'
-                    className='w-60'
+                    className='lg:w-60'
                   />
                 </div>
-                <div className='flex gap-1 content-center'>
-                  <Video className='p-1 w-8 h-8' />
-                  <Phone className='p-1 w-8 h-8' />
-                  <InfoIcon className='p-1 w-8 h-8' />
-                  <EllipsisVertical className='p-1 w-8 h-8' />
+                <div className='flex gap-1 items-center'>
+                  <Video className='p-1 w-8 h-8 fill-current text-gray-500' />
+                  <Phone className='p-1 w-8 h-8 fill-current text-gray-500' />
+                  <InfoIcon className='p-1 w-8 h-8 fill-current text-gray-500 stroke-custom-2' />
+                  <EllipsisVertical className='p-1 w-8 h-8 fill-current text-gray-500' />
                 </div>
               </div>
-            </div>
+            </section>
+            <Separator />
             {/* chat area where conversations are displayed */}
-            <section className=' pt-0.5 h-[817px] w-full'>
-              <ScrollArea className='h-[789px] mb-4 mx-6'>
+            <section className=' pt-0.5 h-[calc(100vh-18.95rem)] w-full'>
+              <ScrollArea className='h-full mb-4 mx-6'>
                 <div className='w-full h-full relative'>
                   <div className='absolute rounded-lg w-fit px-3 py-1.5 top-6 left-1/2 transform translate-x-1/2 bg-white text-black text-opacity-70 text-sm'>
                     Today
@@ -441,29 +444,29 @@ export default function Chat () {
                 </div>
               </ScrollArea>
               {/* chat area located at the bottom of the chat display container where messages are typed and forwarded */}
-              <div className='flex items-center justify-between bg-white rounded-xl px-4 py-2 mx-6'>
+              <div className='flex items-center justify-between bg-white rounded-xl px-4 py-3 mx-6'>
                 <Input
                   type='text'
                   placeHolder='Leave a message for Adura'
                   className='h-10 w-8/12 border-0'
                 />
-                <div className='flex gap-1 w-4/12 justify-end content-center'>
+                <div className='flex gap-1 w-4/12 justify-end items-center'>
                   <div>
-                    <Key className='text-white w-6 h-6 bg-purple-700 rounded-full p-1' />
+                    <Key className='text-white w-7 h-7 bg-purple-700 rounded-full p-1 fill-white' />
                   </div>
                   <div className='flex gap-3 items-center justify-between px-2'>
-                    <Camera className=' w-6 h-6 text-gray-900' />
-                    <Smile className=' w-6 h-6 text-gray-900' />
-                    <Link2 className=' w-6 h-6 text-gray-900' />
+                    <Camera className=' w-8 h-8 text-gray-900 fill-gray-400 ' />
+                    <Smile className=' w-8 h-8 text-gray-900 fill-gray-400' />
+                    <Link2 className=' w-8 h-8 text-gray-900 fill-gray-400 transform rotate-45' />
                   </div>
-                  <div className='border-l-2  px-1.5 '>
-                    <EllipsisVertical className=' w-6 h-6 bg-gray-500 rounded py-1' />
+                  <div className='border-l-2 pl-3.5 '>
+                    <EllipsisVertical className=' w-8 h-8 bg-gray-500 rounded py-1' />
                   </div>
                 </div>
               </div>
             </section>
           </div>
-        </main>
+        </div>
       </div>
     </div>
   )
