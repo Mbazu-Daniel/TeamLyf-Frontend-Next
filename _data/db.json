@@ -1,0 +1,54 @@
+{
+  "Direct": [
+    {
+      "id": 1,
+      "name": "Stanley M.",
+      "alias": "@stanleyMuis",
+      "time": "3:45 PM",
+      "minute": "9m",
+      "notifs": 5,
+      "status": "online",
+      "comments": [
+        { "postid": 1, "body": "Yea that is so nice" },
+        { "postid": 2, "body": "Yea I had no idea" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Adura O.",
+      "alias": "@aduraOgunlana",
+      "time": "3:55 PM",
+      "minute": "12m",
+      "notifs": 3,
+      "status": "offline",
+      "comments": [
+        { "postid": 1, "body": "Who is that person" },
+        { "postid": 2, "body": "What do you mean" }
+      ]
+    }
+  ],
+  "Groups": [
+    {
+      "id": 1,
+      "name": "Backend Team",
+      "time": "3:45 PM",
+      "minute": "9m",
+      "notifs": "",
+      "comments": [
+        { "postid": 1, "body": "Yea that is so nice" },
+        { "postid": 2, "body": "Yea I had no idea" }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "UI/UX Team",
+      "time": "3:55 PM",
+      "minute": "12m",
+      "notifs": 10,
+      "comments": [
+        { "postid": 1, "body": "Yea that is so nice" },
+        { "postid": 2, "body": "Yea I had no idea" }
+      ]
+    }
+  ]
+}
