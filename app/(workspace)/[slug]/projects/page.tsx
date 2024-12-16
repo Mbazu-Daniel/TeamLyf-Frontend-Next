@@ -55,7 +55,7 @@ const Projects = () => {
                         <EmptyProjectBoard />
                     </section>
 
-                    <section className="absolute w-full bg-gray-50/90 h-screen top-0 flex justify-center">
+                    <section className="absolute w-full bg-gray-50/90 h-screen top-0 grid place-content-center bg-[#faf6fd]/50">
                         <CreateNewProject />
                     </section>
 
