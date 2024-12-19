@@ -9,9 +9,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-import { EmptyProjectBoard } from "@/components/EmptyProjectBoard";
-import { CreateNewProject } from "@/components/CreateNewProject";
-
+// import { EmptyProjectBoard } from "@/components/EmptyProjectBoard";
+// import { CreateNewProject } from "@/components/CreateNewProject";
+import { ProjectBoard } from "@/components/ProjectBoard";
 import { List, GalleryVertical, SlidersHorizontal } from "lucide-react";
 
 const Projects = () => {
@@ -51,12 +51,23 @@ const Projects = () => {
                     </section>
                     <Separator className="bg-gray-100/90" />
                     {/* Empty project board state */ }
-                    <section className="w-full h-full grid place-items-center">
+                    {/* <section className="w-full h-full grid place-items-center">
                         <EmptyProjectBoard />
-                    </section>
-
-                    <section className="absolute w-full bg-gray-50/90 h-screen top-0 grid place-content-center bg-[#faf6fd]/50">
+                    </section> */}
+                    {/* Create a new project dialog box */ }
+                    {/* <section className="absolute w-full h-screen top-0 grid place-content-center bg-[#faf6fd]/50">
                         <CreateNewProject />
+                    </section> */}
+
+                    <section className="p-4 grid grid-cols-4 gap-4">
+                        <ProjectBoard />
+                        <ProjectBoard />
+                        <ProjectBoard />
+                        <ProjectBoard />
+                        <ProjectBoard />
+                        <ProjectBoard />
+                        <ProjectBoard />
+                        <ProjectBoard />
                     </section>
 
                 </section>
