@@ -59,7 +59,6 @@ const data: PlaceHolderDataTest[] = [
 
 export type PlaceHolderDataTest = {
     id: string
-
     name: string
     image: string
     alias: string
@@ -173,8 +172,8 @@ export function DataTableDemo() {
                 </Table>
                 <Separator className="bg-gray-100/90 mt-4" />
                 <div className="flex justify-end items-center gap-2 p-4 w-full px-8  border-t-1 border-[#d5d5d5]/50">
-                    <Button type="button" className="text-[#fa4b4b] bg-[#f2f2f2] text-sm rounded-2xl h-10 w-fit shadow-sm" label={ "Cancel" } />
-                    <Button type="submit" className="bg-[#f2f2f2] text-custom-4 w-fit h-10 rounded-2xl text-sm" label={ "Done" } />
+                    <Button type="button" className="text-[#fa4b4b] bg-[#f2f2f2] text-sm rounded-2xl h-10 w-fit shadow-sm hover:text-[#fa4b4b]" label={ "Cancel" } />
+                    <Button type="submit" className="bg-[#f2f2f2] text-custom-4 w-fit h-10 rounded-2xl text-sm hover:text-custom-4" label={ "Done" } />
                 </div>
             </div>
         </div>

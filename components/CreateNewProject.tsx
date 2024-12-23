@@ -1,4 +1,5 @@
 "use client";
+import * as React from "react"
 import { PlusIcon, LockKeyholeOpen, Users } from "lucide-react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -24,6 +25,15 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Workflow } from "./Workflow"
 // import { DataTableDemo } from "@/components/DataTableDemo"
 
 
@@ -38,6 +48,8 @@ const formSchema = z.object( {
 } )
 
 export const CreateNewProject = () => {
+    const [ open, setOpen ] = React.useState( false )
+
 
     const form = useForm<z.infer<typeof formSchema>>( {
         resolver: zodResolver( formSchema ),
@@ -70,7 +82,7 @@ export const CreateNewProject = () => {
                         <form onSubmit={ form.handleSubmit( onSubmit ) } className="space-y-4 mt-9">
                             <div className="border rounded-lg border-[#d5d5d5]/50 mx-8">
                                 <div className="w-full grid place-items-center h-24">
-                                    <Button className=" p-1.5 rounded-xl text-custom-4 bg-gray-3/10" label={ "Add cover photo" } leftIcon={ <PlusIcon size={ 16 } /> } />
+                                    <Button className=" p-1.5 rounded-xl text-custom-4 bg-gray-3/10 hover:text-custom-4" label={ "Add cover photo" } leftIcon={ <PlusIcon size={ 16 } /> } />
                                 </div>
                                 <Separator className="bg-gray-100/90" />
                                 <span className="w-10 h-10 bg-green-400 text-black text-2xl font-bold rounded-lg inline-flex items-center justify-center absolute top-[78px] ml-4 mb-4">
@@ -151,7 +163,7 @@ export const CreateNewProject = () => {
                                             </DropdownMenuGroup>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
-                                    <Button className="text-gray-3 text-sm font-bold border-2 border-gray-3/20 p-2" leftIcon={ <Users size={ 16 } /> } label={ 'Lead' } />
+                                    <Button className="text-gray-3 text-sm font-bold border-2 border-gray-3/20 p-2 hover:text-gray-3" leftIcon={ <Users size={ 16 } /> } label={ 'Lead' } />
                                     {/* This is the popup to be displayed when you click on the private add button */ }
                                     {/* <DataTableDemo/> */ }
                                 </div>
@@ -182,8 +194,22 @@ export const CreateNewProject = () => {
                             </div>
 
                             <div className="flex justify-end items-center gap-2 bg-[#f6f6ff] h-28 w-full px-8 rounded-b-2xl  border border-y-0 border-[#d5d5d5]/50">
-                                <Button type="button" className="text-[#fa4b4b] text-sm rounded-2xl h-12 w-fit px-4 py-3" label={ "Discard" } />
-                                <Button type="submit" className="bg-custom-5 text-white w-fit h-12 rounded-2xl text-sm px-8 py-3" label={ "Proceed" } />
+                                <Button type="button" className="text-[#fa4b4b] text-sm rounded-2xl h-12 w-fit px-4 py-3 hover:text-[#fa4b4b]" label={ "Discard" } />
+
+                                <Dialog open={ open } onOpenChange={ setOpen }>
+                                    <DialogTrigger asChild>
+                                        <Button type="button" className="bg-custom-5 text-white w-fit h-12 rounded-2xl text-sm px-8 py-3 hover:text-white hover:bg-custom-5/80" label={ "Proceed" } />
+                                    </DialogTrigger>
+                                    <DialogContent className="sm:max-w-[670px] px-0 pb-0  bg-white border border-custom-5 text-[#282828]">
+                                        <DialogHeader className="mx-8 mt-2 mb-4">
+                                            <DialogTitle className="text-xl text-[#282828] font-bold mb-2">Define Trustchain workflow</DialogTitle>
+                                            <DialogDescription className="text-[#282828]/60 text-sm font-medium">
+                                                Choose a suitable workflow that's best for your work ethics.
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                        <Workflow />
+                                    </DialogContent>
+                                </Dialog>
                             </div>
                         </form>
                     </Form>
