@@ -12,6 +12,7 @@ import {
   SidebarLabel,
 } from "@/components/ui/sidebar";
 import { DashboardIcon } from "@/components/icons/DashboardIcon";
+import { MilestoneIcon } from "@/components/icons/MilestoneIcon";
 import { TaskIcon } from "@/components/icons/TaskIcon";
 import { ChartIcon } from "@/components/icons/ChatIcon";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
@@ -34,6 +35,11 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
         title: "Dashboard",
         url: `/${slug}/dashboard`,
         icon: DashboardIcon,
+      },
+      {
+        title: "Milestone",
+        url: `/${slug}/milestone`,
+        icon: MilestoneIcon,
       },
       {
         title: "My Tasks",
