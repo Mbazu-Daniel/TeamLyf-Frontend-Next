@@ -4,14 +4,15 @@ import * as React from "react"
 import { MoveRight, ChevronLeft } from "lucide-react"
 // import { useMediaQuery } from "@/hooks/use-media-query"
 import { Button } from "@/components/ui/button"
-// import {
-//     Dialog,
-//     DialogContent,
-//     DialogDescription,
-//     DialogHeader,
-//     DialogTitle,
-//     DialogTrigger,
-// } from "@/components/ui/dialog"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { DefineWorkflow } from "./DefineWorkflow"
 // import {
 //     Drawer,
 //     DrawerClose,
@@ -72,6 +73,9 @@ import { Button } from "@/components/ui/button"
 // }
 
 export function Workflow() {
+    const [open, setOpen] = React.useState(false)
+    const [selected, setSelected] = React.useState(<DefineWorkflow />)
+
     return (
         <div className="border-t border-gray-300 pt-4">
             <div className=" mx-8 mt-2 mb-4 border border-gray-500 rounded-lg p-4">
@@ -148,9 +152,23 @@ export function Workflow() {
                 </div>
             </div>
             <div className="flex justify-between items-center gap-2 bg-[#f6f6ff] h-28 w-full px-8 rounded-b-2xl  border border-y-0 border-[#d5d5d5]/50">
-                <Button type="button" className="text-custom-5 text-sm rounded-2xl h-12 w-fit px-4 py-3 hover:text-[#fa4b4b]" label={ "Back" }  leftIcon={<ChevronLeft size={16}/>}/>
+                <Button type="button" className="text-custom-5 text-sm rounded-2xl h-12 w-fit px-4 py-3 hover:text-[#fa4b4b]" label={"Back"} leftIcon={<ChevronLeft size={16} />} />
 
-                <Button type="button" className="bg-custom-5 text-white w-fit h-12 rounded-2xl text-sm px-8 py-3 hover:text-white hover:bg-custom-5/80" label={ "Create Project" } />
+                {/* <Button type="button" className="bg-custom-5 text-white w-fit h-12 rounded-2xl text-sm px-8 py-3 hover:text-white hover:bg-custom-5/80" label={"Create Project"}/> */}
+                <Dialog open={open} onOpenChange={setOpen}>
+                    <DialogTrigger asChild>
+                        <Button type="button" className="bg-custom-5 text-white w-fit h-12 rounded-2xl text-sm px-8 py-3 hover:text-white hover:bg-custom-5/80" label={"Create Project"} />
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[670px] px-0 pb-0  bg-white border border-custom-5 text-[#282828]">
+                        <DialogHeader className="mx-8 mt-2 mb-4">
+                            <DialogTitle className="text-xl text-[#282828] font-bold mb-2">Define Trustchain workflow</DialogTitle>
+                            <DialogDescription className="text-[#282828]/60 text-sm font-medium">
+                                Choose a suitable workflow that's best for your work ethics.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <DefineWorkflow />
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     )
